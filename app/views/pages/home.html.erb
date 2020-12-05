@@ -1,2 +1,6 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container d-flex justify-content-center">
+  <div class="d-flex flex-column">
+    <%= link_to 'JOIN A GAME', new_player_path%>
+    <%= link_to 'START A GAME', games_path, method: :post %>
+  </div>
+</div>

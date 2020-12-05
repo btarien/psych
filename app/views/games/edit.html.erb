@@ -1,0 +1,16 @@
+<div class="container">
+  <%= link_to 'Back', game_path, method: :delete, data: {confirm: 'Are you sure you want to delete this game?'} %>
+  <h1>Secret Code:</h1>
+  <h2><%= @game.code %></h2>
+
+  <% @players.each do |player| %>
+    <ul>
+      <li><%= player.user.name %></li>
+    </ul>
+  <% end %>
+
+  <%= simple_form_for @game do |f| %>
+    <%= f.hidden_field :open, value: false %>
+    <%= f.submit 'Start Game'%>
+  <% end %>
+</div>

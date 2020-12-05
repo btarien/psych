@@ -1,0 +1,13 @@
+<div class="container">
+  <%= link_to 'Back', player_path(@player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'} %>
+  <h1>Secret Code:</h1>
+  <h2><%= @game.code %></h2>
+
+  <% @players.each do |player| %>
+    <ul>
+      <li><%= player.user.name %></li>
+    </ul>
+  <% end %>
+
+  <p>Waiting for host to start the game...</p>
+</div>
