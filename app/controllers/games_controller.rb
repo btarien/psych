@@ -50,6 +50,14 @@ class GamesController < ApplicationController
   end
 
   def generate_questions
-    Question.create!(number: 1, question: "What would #{Player.first.user.name} do?", player: Player.first, game: @game)
+    questions = []
+    10.times do |num|
+      questions << Question.create!(
+        number: num,
+        question: "What would #{Player.first.user.name} do?",
+        player: Player.first, game: @game
+      )
+    end
+    return questions
   end
 end

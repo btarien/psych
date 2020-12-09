@@ -1,11 +1,7 @@
 <div class="container">
-  <ul>
+  <ul id="answers-list" data-game-id="<%= @answers.first.game.id %>">
     <% @answers.each do |answer| %>
-      <li>
-        <%= link_to answer_votes_path(answer), method: :post do %>
-          <%= answer.player.user.name %>: <%= answer.answer %>
-        <% end %>
-      </li>
+      <%= render partial: 'answer', locals: {answer: answer} %>
     <% end %>
   </ul>
 </div>

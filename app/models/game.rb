@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :players, dependent: :destroy
+  has_many :answers, through: :questions
   belongs_to :user
   validates :code, uniqueness: true
   before_destroy { |record| Question.where(game: record).delete_all }
