@@ -26,10 +26,12 @@ ActiveRecord::Schema.define(version: 2020_12_05_115453) do
   end
 
   create_table "games", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "code"
     t.boolean "open"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_games_on_user_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_12_05_115453) do
   end
 
   create_table "questions", force: :cascade do |t|
+    t.integer "number"
     t.string "question"
     t.bigint "game_id", null: false
     t.bigint "player_id", null: false
@@ -76,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_12_05_115453) do
 
   add_foreign_key "answers", "players"
   add_foreign_key "answers", "questions"
+  add_foreign_key "games", "users"
   add_foreign_key "players", "games"
   add_foreign_key "players", "users"
   add_foreign_key "questions", "games"

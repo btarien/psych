@@ -8,20 +8,21 @@ class GamesController < ApplicationController
 
   def create
     code = generate_code
-    @game = Game.new(code: code, open: true)
-    until @game.save
+    @game = Game.new(code: code, open: true, user: current_user)
+
+    until @game.save # make sure code unique
       code = generate_code
       @game = Game.new(code: code, open: true)
     end
-    Player.create!(user: current_user, game: @game)
-    redirect_to edit_game_path(@game)
-  end
 
-  def edit
-    @players = Player.where(game: @game)
+    @player = Player.create!(user: current_user, game: @game)
+    redirect_to game_path(@game) # go to show
   end
 
   def update
+    @game.update(game_params)
+    @game.questions << generate_questions
+    redirect_to question_path(@game.questions.first)
   end
 
   def destroy
@@ -36,11 +37,15 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:code, :open)
+    params.require(:game).permit(:code, :open, :user)
   end
 
   def generate_code
     letters = ('A'..'Z').to_a
     letters.sample(8).join
+  end
+
+  def generate_questions
+    Question.create!(number: 1, question: "What would #{Player.first.user.name} do?", player: Player.first, game: @game)
   end
 end

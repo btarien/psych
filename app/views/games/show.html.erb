@@ -1,13 +1,24 @@
 <div class="container">
-  <%= link_to 'Back', player_path(@player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'} %>
+  <% if current_user == @game.host %>
+    <%= link_to 'Back', game_path(@game), method: :delete, data: {confirm: 'Are you sure you want to cancel this game?'} %>
+  <% else %>
+    <%= link_to 'Back', player_path(@player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'} %>
+  <% end %>
   <h1>Secret Code:</h1>
   <h2><%= @game.code %></h2>
 
+  <ul id="players-list" data-game-id="<%= @game.id %>">
   <% @players.each do |player| %>
-    <ul>
-      <li><%= player.user.name %></li>
-    </ul>
+    <li><%= player.user.name %></li>
   <% end %>
+  </ul>
 
-  <p>Waiting for host to start the game...</p>
+  <% if current_user == @game.host %>
+    <%= simple_form_for @game do |f| %>
+      <%= f.hidden_field :open, value: false %>
+      <%= f.submit 'Start Game'%>
+    <% end %>
+  <% else %>
+    <p>Waiting for host to start the game...</p>
+  <% end %>
 </div>
