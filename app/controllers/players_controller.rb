@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
     if @player.save
       GameChannel.broadcast_to(
         @player.game,
-        "<li>#{@player.user.name}</li>"
+        { action: "add player", content: "<li>#{@player.user.name}</li>" }
       )
       redirect_to game_path(@player.game)
     else

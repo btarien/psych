@@ -22,7 +22,11 @@ class GamesController < ApplicationController
   def update
     @game.update(game_params)
     @game.questions << generate_questions
-    redirect_to question_path(@game.questions.first)
+    @game.save
+    GameChannel.broadcast_to(
+      @game,
+      { action: "start", id: @game.questions.first.id }
+    )
   end
 
   def destroy
