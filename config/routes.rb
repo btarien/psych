@@ -6,12 +6,9 @@ Rails.application.routes.draw do
     resources :questions, only: [:create]
   end
   resources :questions, only: [:show, :destroy] do
-    member do
-      get :waiting_room
-    end
     resources :answers, only: [:index, :create]
   end
   resources :answers, only: [:show] do
-    resources :votes, only: [:create]
+    resources :votes, only: [:create, :index]
   end
 end
