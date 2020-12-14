@@ -9,11 +9,13 @@ class AnswersController < ApplicationController
     @answer.question = Question.find(params[:question_id])
     @answer.player = Player.find_by(user: current_user)
     if @answer.save
-      GameChannel.broadcast_to(
-        @answer.game,
-        { action: "add answer", content: render_to_string(partial: "answer", locals: { answer: @answer }) }
-      )
-      redirect_to question_answers_path # redirect to answers#index
+      if Answer.where(question: @answer.question).count == @answer.game.players.count
+        GameChannel.broadcast_to(
+          @answer.game,
+          { action: "show answers" }
+        )
+      end
+      redirect_to question_answers_path(@answer.question) # redirect to answers#index
     else
       render :index
     end

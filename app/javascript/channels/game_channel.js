@@ -22,12 +22,13 @@ const initGameCable = () => {
   const answersList = document.getElementById('answers-list');
   if (answersList) {
     const id = answersList.dataset.gameId;
-
     consumer.subscriptions.create({ channel: "GameChannel", id: id }, {
       received(data) { // called when data is broadcast in the cable
+        console.log("hello");
         switch (data.action) {
-          case "add answer":
-            answersList.insertAdjacentHTML('beforeend', data.content);
+          case "show answers":
+            console.log("show answers");
+            location.reload();
             break;
         }
       },
