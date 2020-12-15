@@ -4,11 +4,10 @@
     <% end %>
 
   <div class="d-flex">
-    <% if current_user.player %>
-      <%= link_to "Leave Game", player_path(current_user.player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'}, class: "btn btn-primary mx-3" %>
-    <% end %>
-
     <% if user_signed_in? %>
+      <% if current_user.player %>
+        <%= link_to "Leave Game", player_path(current_user.player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'}, class: "btn btn-outline-primary mx-3" %>
+      <% end %>
       <div class="dropdown">
         <%= cl_image_tag current_user.avatar.key,
             transformation: [{width: 400, height: 400, crop: :fill}, {width: 100, crop: :scale}],
@@ -23,9 +22,7 @@
         </div>
       </div>
     <% else %>
-      <li>
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-      </li>
+      <%= link_to "Login", new_user_session_path, class: "nav-link" %>
     <% end %>
   </div>
 </div>

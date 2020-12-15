@@ -1,24 +1,35 @@
 <div class="container">
-  <% if current_user == @game.host %>
-    <%= link_to 'Back', game_path(@game), method: :delete, data: {confirm: 'Are you sure you want to cancel this game?'} %>
-  <% else %>
-    <%= link_to 'Back', player_path(@player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'} %>
-  <% end %>
-  <h1>Secret Code:</h1>
-  <h2><%= @game.code %></h2>
-
-  <ul id="players-list" data-game-id="<%= @game.id %>">
-  <% @players.each do |player| %>
-    <li><%= player.user.name %></li>
-  <% end %>
-  </ul>
-
-  <% if current_user == @game.host %>
-    <%= simple_form_for @game do |f| %>
-      <%= f.hidden_field :open, value: false %>
-      <%= f.submit 'Start Game'%>
+  <div class="game-container">
+    <% if current_user == @game.host %>
+      <%= link_to game_path(@game), method: :delete, data: {confirm: 'Are you sure you want to cancel this game?'}  do %>
+        <i class="fas fa-arrow-left"></i>
+      <% end %>
+    <% else %>
+      <%= link_to player_path(@player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'} do %>
+        <i class="fas fa-arrow-left"></i>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>Waiting for host to start the game...</p>
-  <% end %>
+    <h2 class="text-center">Secret Code: <h1 class="text-center text-primary"><%= @game.code %></h1></h2>
+
+    <div class="dropdown-divider"></div>
+
+    <ul id="players-list" class="align-items-center" data-game-id="<%= @game.id %>">
+    <% @players.each do |player| %>
+      <%= render partial: 'player', locals: {player: player} %>
+    <% end %>
+    </ul>
+
+    <div class="dropdown-divider mt-0"></div>
+
+    <div class="mt-2">
+      <% if current_user == @game.host %>
+        <%= simple_form_for @game do |f| %>
+          <%= f.hidden_field :open, value: false %>
+          <%= f.submit 'Start Game', class: "btn btn-primary w-100" %>
+        <% end %>
+      <% else %>
+        <p>Waiting for host to start the game...</p>
+      <% end %>
+    </div>
+  </div>
 </div>

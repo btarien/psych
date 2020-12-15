@@ -6,11 +6,11 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
     @player.user = current_user
-    @player.game = Game.find_by(code: @player.code)
+    @player.game = Game.find_by(code: @player.code.upcase)
     if @player.save
       GameChannel.broadcast_to(
         @player.game,
-        { action: "add player", content: "<li>#{@player.user.name}</li>" }
+        { action: "add player", content: render_to_string(partial: "games/player", locals: { player: @player }) }
       )
       redirect_to game_path(@player.game)
     else

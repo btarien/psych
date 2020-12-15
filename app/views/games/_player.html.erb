@@ -1,0 +1,5 @@
+<li class="player my-2">
+  <%= cl_image_tag player.user.avatar.key,
+      transformation: [{width: 400, height: 400, crop: :fill}, {width: 100, crop: :scale}], class: "avatar" %>
+  <%= player.user.name %>
+</li>
