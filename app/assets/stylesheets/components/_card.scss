@@ -1,9 +1,27 @@
 .answer-card {
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px;
   margin-top: 5px;
   background: $primary;
   display: flex;
   align-itmes: center;
   justify-content: center;
+}
+
+.vote-card {
+  color: $primary;
+  border: 2px solid $primary;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 10px;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vote-count {
+  color: $primary;
+  font-weight: bold;
+  font-size: 24px;
 }

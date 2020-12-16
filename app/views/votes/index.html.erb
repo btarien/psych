@@ -1,10 +1,19 @@
 <div class="container">
-  <ul id="votes-list" data-game-id="<%= @votes.first.answer.game.id %>">
-    <% if @question.votes.count == @answers.first.game.players.count %>
-      <% @answers.each do |answer| %>
-        <li><%= answer.votes.count %> - <%= answer.answer %> - <%= answer.player.user.name %></li>
+  <div class="game-container">
+    <div id="votes-list" data-game-id="<%= @votes.first.answer.game.id %>">
+      <% if @question.votes.count == @answers.first.game.players.count %>
+        <% @answers.each do |answer| %>
+          <div class="my-2 d-flex justify-content-between align-items-center" style="list-style-type: none;">
+            <%= cl_image_tag answer.player.user.avatar.key, transformation: [{width: 400, height: 400, crop: :fill}, {width: 100, crop: :scale}], class: "avatar" %>
+            <div class="vote-card"><%= answer.answer %></div>
+            <div class="vote-count"><%= answer.votes.count %></div>
+          </div>
+        <% end %>
+        <div class="dropdown-divider mt-0"></div>
+        <%= link_to "Continue", question_path(@answers.first.question.next), class: "btn btn-primary w-100" %>
+      <% else %>
+        <p>Waiting for votes...</p>
       <% end %>
-    <% end %>
-  </ul>
-  <%= link_to "Continue", question_path(@answers.first.question.next) %>
+    </div>
+  </div>
 </div>
