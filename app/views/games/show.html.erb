@@ -13,7 +13,7 @@
 
     <div class="dropdown-divider"></div>
 
-    <ul id="players-list" class="align-items-center" data-game-id="<%= @game.id %>">
+    <ul id="players-list" class="align-items-center" data-game-id="<%= @game.id %>" style="list-style-type: none;">
     <% @players.each do |player| %>
       <%= render partial: 'player', locals: {player: player} %>
     <% end %>

@@ -1,11 +1,13 @@
 <div class="container">
-  <ul id="answers-list" data-game-id="<%= @answers.first.game.id %>">
-    <% if Answer.where(question: @answers.first.question).count == @answers.first.game.players.count %>
-      <% @answers.each do |answer| %>
-        <%= render partial: 'answer', locals: {answer: answer} %>
+  <div class="game-container">
+    <div id="answers-list" data-game-id="<%= @answers.first.game.id %>">
+      <% if Answer.where(question: @answers.first.question).count == @answers.first.game.players.count %>
+        <% @answers.each do |answer| %>
+          <%= render partial: 'answer', locals: {answer: answer} %>
+        <% end %>
+      <% else %>
+        <p>Waiting for answers...</p>
       <% end %>
-    <% else %>
-      <p>Waiting for answers...</p>
-    <% end %>
-  </ul>
+    </div>
+  </div>
 </div>

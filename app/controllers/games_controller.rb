@@ -53,7 +53,7 @@ class GamesController < ApplicationController
     questions = []
     10.times do |num|
       questions << Question.create!(
-        number: num,
+        number: num + 1,
         question: "What would #{Player.first.user.name} do?",
         player: Player.first, game: @game
       )
