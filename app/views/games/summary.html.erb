@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="game-container">
+    <h1>Game Summary</h1>
+    <% @game.players.each do |player| %>
+      <div class="my-2 d-flex justify-content-between align-items-center" style="list-style-type: none;">
+        <%= cl_image_tag player.user.avatar.key, transformation: [{width: 400, height: 400, crop: :fill}, {width: 100, crop: :scale}], class: "avatar" %>
+        <div class="vote-card"><%= player.user.name %></div>
+        <div class="vote-count"><%= player.points %></div>
+      </div>
+    <% end %>
+    <div class="dropdown-divider mt-0"></div>
+    <%= link_to "New Game", game_path(@game), method: :delete, class: "btn btn-primary w-100" %>
+  </div>
+</div>

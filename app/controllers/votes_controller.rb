@@ -10,6 +10,7 @@ class VotesController < ApplicationController
     @player = Player.find_by(user: current_user)
     @answer = Answer.find(params[:answer_id])
     Vote.create!(answer: @answer, player: @player)
+    @answer.player.increment!(:points)
     if @answer.question.votes.count == @answer.game.players.count
       GameChannel.broadcast_to(
         @answer.game,

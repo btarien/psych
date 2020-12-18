@@ -34,6 +34,10 @@ class GamesController < ApplicationController
     redirect_to root_path
   end
 
+  def summary
+    @game = Game.find(params[:id])
+  end
+
   private
 
   def set_game
@@ -51,7 +55,7 @@ class GamesController < ApplicationController
 
   def generate_questions
     questions = []
-    10.times do |num|
+    2.times do |num|
       questions << Question.create!(
         number: num + 1,
         question: "What would #{Player.first.user.name} do?",

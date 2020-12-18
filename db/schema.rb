@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_153617) do
 
   create_table "players", force: :cascade do |t|
     t.string "code"
+    t.integer "points", default: 0
     t.bigint "user_id", null: false
     t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
