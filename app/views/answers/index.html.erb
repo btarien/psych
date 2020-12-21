@@ -3,11 +3,16 @@
     <div id="answers-list" data-game-id="<%= @answers.first.game.id %>">
       <% if Answer.where(question: @answers.first.question).count == @answers.first.game.players.count %>
         <% @answers.each do |answer| %>
-          <%= render partial: 'answer', locals: {answer: answer} %>
+          <%= render partial: 'answers/answer', locals: {answer: answer} %>
         <% end %>
       <% else %>
         <p>Waiting for answers...</p>
       <% end %>
     </div>
+    <% if @vote && @vote.errors.any? %>
+      <% @vote.errors.values.each do |error| %>
+        <p class="alert alert-danger mt-2"><%= error.first %></p>
+      <% end %>
+    <% end %>
   </div>
 </div>
