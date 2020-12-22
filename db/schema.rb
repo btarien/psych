@@ -39,7 +39,8 @@ ActiveRecord::Schema.define(version: 2020_12_10_153617) do
   create_table "answers", force: :cascade do |t|
     t.string "answer"
     t.bigint "question_id", null: false
-    t.bigint "player_id", null: false
+    t.bigint "player_id"
+    t.integer "votes_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["player_id"], name: "index_answers_on_player_id"
@@ -70,11 +71,9 @@ ActiveRecord::Schema.define(version: 2020_12_10_153617) do
     t.integer "number"
     t.string "question"
     t.bigint "game_id", null: false
-    t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_questions_on_game_id"
-    t.index ["player_id"], name: "index_questions_on_player_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_153617) do
 
   create_table "votes", force: :cascade do |t|
     t.bigint "answer_id", null: false
-    t.bigint "player_id", null: false
+    t.bigint "player_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["answer_id"], name: "index_votes_on_answer_id"
@@ -106,7 +105,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_153617) do
   add_foreign_key "players", "games"
   add_foreign_key "players", "users"
   add_foreign_key "questions", "games"
-  add_foreign_key "questions", "players"
   add_foreign_key "votes", "answers"
   add_foreign_key "votes", "players"
 end

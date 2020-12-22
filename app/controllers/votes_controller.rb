@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   def index
     answer = Answer.find(params[:answer_id])
     @votes = Vote.where(answer: answer)
-    @answers = Answer.where(question: answer.question)
+    @answers = answer.question.answers.order("votes_count desc")
     @question = Question.find(@votes.first.question.id)
   end
 
@@ -10,7 +10,6 @@ class VotesController < ApplicationController
     @player = Player.find_by(user: current_user)
     @answer = Answer.find(params[:answer_id])
     @vote = Vote.new(answer: @answer, player: @player)
-    @answers = @answer.question.answers
     if @vote.save
       @answer.player.increment!(:points)
       if @answer.question.votes.count == @answer.game.players.count

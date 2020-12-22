@@ -38,10 +38,8 @@ const initGameCable = () => {
     const id = votesList.dataset.gameId;
     consumer.subscriptions.create({ channel: "GameChannel", id: id }, {
       received(data) { // called when data is broadcast in the cable
-        console.log("hello");
         switch (data.action) {
           case "show votes":
-            console.log("show votes");
             location.reload();
             break;
         }

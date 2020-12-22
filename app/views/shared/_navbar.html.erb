@@ -6,10 +6,10 @@
   <div class="d-flex">
     <% if user_signed_in? %>
       <% if current_user.player %>
-        <% if current_user.player == current_user.player.game.host %>
-          <%= link_to "Leave Game", player_path(current_user.player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'}, class: "btn btn-outline-primary mx-3" %>
-        <% else %>
+        <% if current_user == current_user.player.game.host %>
           <%= link_to "Leave Game", game_path(current_user.player.game), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'}, class: "btn btn-outline-primary mx-3" %>
+        <% else %>
+          <%= link_to "Leave Game", player_path(current_user.player), method: :delete, data: {confirm: 'Are you sure you want to leave this game?'}, class: "btn btn-outline-primary mx-3" %>
         <% end %>
       <% end %>
       <div class="dropdown">

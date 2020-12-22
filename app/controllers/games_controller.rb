@@ -21,7 +21,7 @@ class GamesController < ApplicationController
 
   def update
     @game.update(game_params)
-    @game.questions << generate_questions
+    generate_questions
     @game.save
     GameChannel.broadcast_to(
       @game,
@@ -36,6 +36,8 @@ class GamesController < ApplicationController
 
   def summary
     @game = Game.find(params[:id])
+    @player = Player.find_by(user: current_user)
+    @players = @game.players.order(points: :desc)
   end
 
   private
@@ -54,14 +56,13 @@ class GamesController < ApplicationController
   end
 
   def generate_questions
-    questions = []
-    2.times do |num|
-      questions << Question.create!(
-        number: num + 1,
-        question: "What would #{Player.first.user.name} do?",
-        player: Player.first, game: @game
+    players = @game.players
+    Question.questions.each_with_index do |question, i|
+      @game.questions << Question.create!(
+        number: i + 1,
+        question: format(question, players[i % players.length].user.name),
+        game: @game
       )
     end
-    return questions
   end
 end
