@@ -1,7 +1,6 @@
 class AnswersController < ApplicationController
   def index
     @answers = Answer.where(question: params[:question_id])
-    @question = @answers.first.question
   end
 
   def create
