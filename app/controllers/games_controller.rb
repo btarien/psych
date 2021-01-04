@@ -52,7 +52,7 @@ class GamesController < ApplicationController
 
   def generate_code
     letters = ('A'..'Z').to_a
-    letters.sample(8).join
+    letters.sample(4).join
   end
 
   def generate_questions

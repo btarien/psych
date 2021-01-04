@@ -11,6 +11,7 @@ class User < ApplicationRecord
   def set_default_avatar
     return if avatar.attached?
 
-    avatar.attach(io: URI.open(LetterAvatar.generate(name, 600)), filename: "#{name}.png", content_type: 'image/png')
+    LetterAvatar.setup { |config| config.pointsize = 300 }
+    avatar.attach(io: URI.open(LetterAvatar.generate(name, 1000)), filename: "#{name}.png", content_type: 'image/png')
   end
 end

@@ -1,5 +1,5 @@
-<div class="answer-card">
-  <div><%= link_to answer_votes_path(answer), method: :post, class: "text-white" do %>
-    <%= answer.answer %></div>
-  <% end %>
-</div>
+<%= link_to answer_votes_path(answer), method: :post, class: "text-white", style: "text-decoration: none;" do %>
+  <div class="answer-card">
+    <%= answer.answer %>
+  </div>
+<% end %>

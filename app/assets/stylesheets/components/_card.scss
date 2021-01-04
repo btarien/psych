@@ -6,6 +6,10 @@
   display: flex;
   align-itmes: center;
   justify-content: center;
+
+  &:hover {
+    filter: brightness(120%);
+  }
 }
 
 .vote-card {

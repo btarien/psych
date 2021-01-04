@@ -9,7 +9,7 @@ class VotesController < ApplicationController
   def create
     @player = Player.find_by(user: current_user)
     @answer = Answer.find(params[:answer_id])
-    @answers = @answer.question.answers
+    @answers = @answer.question.answers # used for rerendering answers#index
     @vote = Vote.new(answer: @answer, player: @player)
     if @vote.save
       @answer.player.increment!(:points)

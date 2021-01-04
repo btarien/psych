@@ -36,6 +36,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 
 gem 'letter_avatar'
+gem 'unirest'
 
 group :development, :test do
   gem 'pry-byebug'

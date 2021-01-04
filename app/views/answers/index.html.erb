@@ -2,6 +2,7 @@
   <div class="game-container">
     <div id="answers-list" data-game-id="<%= @answers.first.game.id %>">
       <% if Answer.where(question: @answers.first.question).count == @answers.first.game.players.count %>
+        <p class="text-center">Pick the best answer</p>
         <% @answers.each do |answer| %>
           <%= render partial: 'answers/answer', locals: {answer: answer} %>
         <% end %>
