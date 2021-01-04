@@ -4,6 +4,9 @@ class VotesController < ApplicationController
     @votes = Vote.where(answer: answer)
     @answers = answer.question.answers.order("votes_count desc")
     @question = Question.find(@votes.first.question.id)
+    @game = answer.game
+    @player = Player.find_by(user: current_user)
+    @players = @game.players.order(points: :desc)
   end
 
   def create

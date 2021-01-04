@@ -19,13 +19,15 @@ class PlayersController < ApplicationController
   end
 
   def destroy
-    @player = Player.find(params[:id])
-    if @player.game.players.count == 1
-      @player.game.destroy
-    elsif @player.game
-      Vote.where(answer: Answer.where(player: @player)).delete_all
-      Answer.where(player: @player).delete_all
-      @player.destroy
+    if Player.exists?(params[:id])
+      @player = Player.find(params[:id])
+      if @player.game.players.count == 1
+        @player.game.destroy
+      elsif @player.game
+        Vote.where(answer: Answer.where(player: @player)).delete_all
+        Answer.where(player: @player).delete_all
+        @player.destroy
+      end
     end
     redirect_to root_path
   end

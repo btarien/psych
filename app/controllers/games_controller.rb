@@ -34,12 +34,6 @@ class GamesController < ApplicationController
     redirect_to root_path
   end
 
-  def summary
-    @game = Game.find(params[:id])
-    @player = Player.find_by(user: current_user)
-    @players = @game.players.order(points: :desc)
-  end
-
   private
 
   def set_game
@@ -56,7 +50,7 @@ class GamesController < ApplicationController
   end
 
   def generate_questions
-    players = @game.players
+    players = @game.players.shuffle
     Question.questions.each_with_index do |question, i|
       @game.questions << Question.create!(
         number: i + 1,

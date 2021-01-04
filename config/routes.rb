@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   resources :players, only: [:new, :create, :destroy]
   resources :games, only: [:show, :create, :edit, :update, :destroy] do
     resources :questions, only: [:create]
-    member do
-      get :summary
-    end
   end
   resources :questions, only: [:show, :destroy] do
     resources :answers, only: [:index, :create]
